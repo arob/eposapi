@@ -7,16 +7,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CountryResource;
 use App\Http\Requests\Master\CountryCreateRequest;
 
-class CountryController extends Controller
-{
+class CountryController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return CountryResource::collection(Country::orderBy('name')->get());
+    public function index() {
+        return CountryResource::collection(
+            Country::orderBy('name')->get()
+        );
     }
 
     /**
@@ -25,8 +25,7 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CountryCreateRequest $request)
-    {
+    public function store(CountryCreateRequest $request) {
         $country = Country::create([
             'name' => $request->name,
             'short_name' => $request->short_name
@@ -42,8 +41,7 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Country $country)
-    {
+    public function show(Country $country) {
         return new CountryResource($country);
     }
 
@@ -54,8 +52,7 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CountryCreateRequest $request, Country $country)
-    {
+    public function update(CountryCreateRequest $request, Country $country) {
         $country->update($request->all());
 
         return new CountryResource($country);
@@ -67,10 +64,9 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
-    {
-        $country->delete();
+    public function destroy(Country $country) {
+        // $country->delete();
 
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
     }
 }

@@ -3,20 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\District;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DistrictResource;
 use App\Http\Requests\Master\DistrictCreateRequest;
 
-class DistrictController extends Controller
-{
+class DistrictController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return DistrictResource::collection(District::orderBy('name')->get());
     }
 
@@ -26,8 +23,7 @@ class DistrictController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DistrictCreateRequest $request)
-    {
+    public function store(DistrictCreateRequest $request) {
         $district = District::create($request->all());
 
         return new DistrictResource($district);
@@ -39,8 +35,7 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(District $district)
-    {
+    public function show(District $district) {
         return new DistrictResource($district);
     }
 
@@ -51,8 +46,9 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DistrictCreateRequest $request, District $district)
-    {
+    public function update(DistrictCreateRequest $request, 
+        District $district) {
+            
         $district->update($request->all());
 
         return new DistrictResource($district); 

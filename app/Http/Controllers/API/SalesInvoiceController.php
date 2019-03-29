@@ -4,25 +4,19 @@ namespace App\Http\Controllers\API;
 
 use App\Models\SalesItem;
 use App\Models\SalesInvoice;
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
-
 use App\Http\Resources\SalesInvoice\SalesInvoiceResource;
-
 use App\Http\Requests\SalesInvoice\SalesInvoiceCreateRequest;
 use App\Http\Requests\SalesInvoice\SalesInvoiceUpdateRequest;
 use App\Http\Resources\SalesInvoice\SalesInvoiceWithItemsResource;
 
-class SalesInvoiceController extends Controller
-{
+class SalesInvoiceController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return SalesInvoiceResource::collection(
             SalesInvoice::orderBy('created_at')
                 ->paginate(10)
@@ -35,8 +29,7 @@ class SalesInvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SalesInvoiceCreateRequest $request)
-    {
+    public function store(SalesInvoiceCreateRequest $request) {
 
         $salesInvoice = SalesInvoice::create($request->all());
 
@@ -51,8 +44,7 @@ class SalesInvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SalesInvoice $salesInvoice)
-    {
+    public function show(SalesInvoice $salesInvoice) {
         return new SalesInvoiceWithItemsResource($salesInvoice);
     }
 
@@ -63,19 +55,13 @@ class SalesInvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SalesInvoiceUpdateRequest $request, SalesInvoice $salesInvoice)
-    {
-
-        $itemsModel = [];
-
-        foreach($request->items as $item) {
-            $itemsModel[] = new SalesItem($item);
-        }
+    public function update(SalesInvoiceUpdateRequest $request, 
+        SalesInvoice $salesInvoice) {
 
         $salesInvoice->update($request->all());
         $salesInvoice->items()->delete();
 
-        $salesInvoice->items()->saveMany($itemsModel);
+        $salesInvoice->items()->createMany($request->items);
 
 
         return new SalesInvoiceWithItemsResource($salesInvoice);
@@ -87,10 +73,7 @@ class SalesInvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SalesInvoice $salesInvoice)
-    {
-        $salesInvoice->delete();
-
-        return response()->json(null, 204);
+    public function destroy(SalesInvoice $salesInvoice) {
+        //
     }
 }

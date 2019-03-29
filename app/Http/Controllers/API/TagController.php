@@ -46,8 +46,7 @@ class TagController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TagCreateRequest $request, Tag $tag)
-    {
+    public function update(TagCreateRequest $request, Tag $tag) {
         $tag->update($request->all());
 
         return new TagResource($tag);
@@ -59,8 +58,7 @@ class TagController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
-    {
+    public function destroy(Tag $tag) {
         $tag->delete();
 
         return response()->json(null, 204);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-// use Illuminate\Http\Request;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
 use App\Http\Controllers\Controller;
@@ -11,15 +10,13 @@ use App\Http\Requests\PurchaseOrder\PurchaseOrderCreateRequest;
 use App\Http\Requests\PurchaseOrder\PurchaseOrderUpdateRequest;
 use App\Http\Resources\PurchaseOrder\PurchaseOrderWithItemsResource;
 
-class PurchaseOrderController extends Controller
-{
+class PurchaseOrderController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return PurchaseOrderResource::collection(
             PurchaseOrder::orderBy('created_at')->paginate()
         );
@@ -31,8 +28,7 @@ class PurchaseOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PurchaseOrderCreateRequest $request)
-    {
+    public function store(PurchaseOrderCreateRequest $request) {
         $purchaseOrder = PurchaseOrder::create($request->all());
 
         $purchaseOrder->items()
@@ -47,8 +43,7 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(PurchaseOrder $purchaseOrder)
-    {
+    public function show(PurchaseOrder $purchaseOrder) {
         return new PurchaseOrderWithItemsResource($purchaseOrder);
     }
 
@@ -60,18 +55,12 @@ class PurchaseOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(PurchaseOrderUpdateRequest $request,
-        PurchaseOrder $purchaseOrder)
-    {
-        $itemsModel = [];
-
-        foreach($request->items as $item) {
-            $itemsModel[] = new PurchaseOrderItem($item);
-        }
-
+        PurchaseOrder $purchaseOrder) {
+        
         $purchaseOrder->update($request->all());
         $purchaseOrder->items()->delete();
 
-        $purchaseOrder->items()->saveMany($itemsModel);
+        $purchaseOrder->items()->createMany($request->items);
 
 
         return new PurchaseOrderWithItemsResource($purchaseOrder);
@@ -83,10 +72,7 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PurchaseOrder $purchaseOrder)
-    {
-        $purchaseOrder->delete();
-
-        return response()->json(null, 204);
+    public function destroy(PurchaseOrder $purchaseOrder) {
+        //
     }
 }

@@ -16,7 +16,9 @@ class UomController extends Controller {
      */
     public function index() {
 
-        return UomResource::collection(Uom::orderBy('name')->get());
+        return UomResource::collection(
+            Uom::orderBy('name')->get()
+        );
 
     }
 
@@ -52,7 +54,8 @@ class UomController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UomUpdateRequest $request, Uom $uom) {
+    public function update(UomUpdateRequest $request, 
+        Uom $uom) {
 
         $uom->update($request->all());
 
@@ -68,8 +71,8 @@ class UomController extends Controller {
      */
     public function destroy(Uom $uom) {
 
-        $uom->delete();
+        // $uom->delete();
 
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
     }
 }

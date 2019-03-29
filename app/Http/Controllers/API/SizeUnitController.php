@@ -8,16 +8,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SizeUnitResource;
 use App\Http\Requests\Master\SizeUnitCreateRequest;
 
-class SizeUnitController extends Controller
-{
+class SizeUnitController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return SizeUnitResource::collection(SizeUnit::orderBy('name')->get());
+    public function index() {
+        return SizeUnitResource::collection(
+            SizeUnit::orderBy('name')->get()
+        );
     }
 
     /**
@@ -26,8 +26,8 @@ class SizeUnitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SizeUnitCreateRequest $request)
-    {
+    public function store(SizeUnitCreateRequest $request) {
+
         $sizeUnit = SizeUnit::create($request->all());
 
         return new SizeUnitResource($sizeUnit);
@@ -39,8 +39,7 @@ class SizeUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SizeUnit $sizeUnit)
-    {
+    public function show(SizeUnit $sizeUnit) {
         return new SizeUnitResource($sizeUnit);
     }
 
@@ -51,8 +50,9 @@ class SizeUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SizeUnitCreateRequest $request, SizeUnit $sizeUnit)
-    {
+    public function update(SizeUnitCreateRequest $request, 
+        SizeUnit $sizeUnit) {
+
         $sizeUnit->update($request->all());
 
         return new SizeUnitResource($sizeUnit);
@@ -64,11 +64,10 @@ class SizeUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SizeUnit $sizeUnit)
-    {
-        $sizeUnit->delete();
+    public function destroy(SizeUnit $sizeUnit) {
+        // $sizeUnit->delete();
 
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
 
     }
 }

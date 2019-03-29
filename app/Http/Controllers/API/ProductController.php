@@ -8,16 +8,16 @@ use App\Http\Resources\Product\ProductResource;
 use App\Http\Requests\Product\ProductCreateRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
 
-class ProductController extends Controller
-{
+class ProductController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return ProductResource::collection(Product::orderBy('name')->get());
+    public function index() {
+        return ProductResource::collection(
+            Product::orderBy('name')->get()
+        );
     }
 
     /**
@@ -26,8 +26,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductCreateRequest $request)
-    {
+    public function store(ProductCreateRequest $request) {
         $product = Product::create($request->all());
 
         return new ProductResource($product);
@@ -39,9 +38,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
-    {
+    public function show(Product $product) {
+
         return new ProductResource($product);
+
     }
 
     /**
@@ -51,8 +51,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductUpdateRequest $request, Product $product)
-    {
+    public function update(ProductUpdateRequest $request, 
+        Product $product) {
         $product->update($request->all());
 
         return new ProductResource($product);
@@ -64,10 +64,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
-    {
-        $product->delete();
-
-        return response()->json(null, 204);
+    public function destroy(Product $product) {
+        //
     }
 }

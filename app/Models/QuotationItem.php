@@ -14,12 +14,14 @@ class QuotationItem extends Model
 
     
     public function quotation() {
-        return $this->belongsTo('App\Models\Quotation');
+        return $this->belongsTo('App\Models\Quotation')
+            ->withDefault();
     }
 
     
     public function product() {
-        return $this->belongsTo('App\Models\Product');
+        return $this->belongsTo('App\Models\Product')
+            ->withDefault();
     }
 
 

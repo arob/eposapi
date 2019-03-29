@@ -3,23 +3,20 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Manufacturer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Manufacturer\ManufacturerResource;
 use App\Http\Requests\Manufacturer\ManufacturerCreateRequest;
 use App\Http\Requests\Manufacturer\ManufacturerUpdateRequest;
 
-class ManufacturerController extends Controller
-{
+class ManufacturerController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return ManufacturerResource::collection(
-            Manufacturer::orderBy('name')->get()
+            Manufacturer::orderBy('name')->paginate()
         );
     }
 
@@ -29,8 +26,8 @@ class ManufacturerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ManufacturerCreateRequest $request)
-    {
+    public function store(ManufacturerCreateRequest $request) {
+
         $manufacturer = Manufacturer::create($request->all());
 
         return new ManufacturerResource($manufacturer);
@@ -43,8 +40,7 @@ class ManufacturerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Manufacturer $manufacturer)
-    {
+    public function show(Manufacturer $manufacturer) {
         return new ManufacturerResource($manufacturer);
     }
 
@@ -57,12 +53,12 @@ class ManufacturerController extends Controller
      */
     public function update(
         ManufacturerUpdateRequest $request, 
-        Manufacturer $manufacturer)
-    
-    {
+        Manufacturer $manufacturer) {
+
         $manufacturer->update($request->all());
 
         return new ManufacturerResource($manufacturer);
+
     }
 
     /**
@@ -71,11 +67,10 @@ class ManufacturerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Manufacturer $manufacturer)
-    {
-        $manufacturer->delete();
+    public function destroy(Manufacturer $manufacturer) {
+        // $manufacturer->delete();
 
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
         
     }
 }

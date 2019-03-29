@@ -7,15 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ThanaResource;
 use App\Http\Requests\Master\ThanaCreateRequest;
 
-class ThanaController extends Controller
-{
+class ThanaController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return ThanaResource::collection(Thana::orderBy('name')->get());
     }
 
@@ -25,8 +23,8 @@ class ThanaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ThanaCreateRequest $request)
-    {
+    public function store(ThanaCreateRequest $request) {
+        
         $thana = Thana::create($request->all());
 
         return new ThanaResource($thana);
@@ -38,8 +36,7 @@ class ThanaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Thana $thana)
-    {
+    public function show(Thana $thana) {
 
         return new ThanaResource($thana);
         
@@ -52,8 +49,9 @@ class ThanaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ThanaCreateRequest $request, Thana $thana)
-    {
+    public function update(ThanaCreateRequest $request, 
+        Thana $thana) {
+
         $thana->update($request->all());
 
         return new ThanaResource($thana);
@@ -66,8 +64,7 @@ class ThanaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

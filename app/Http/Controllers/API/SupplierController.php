@@ -15,7 +15,9 @@ class SupplierController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return SupplierResource::collection(Supplier::orderBy('name')->get());
+        return SupplierResource::collection(
+            Supplier::orderBy('name')->get()
+        );
     }
 
     /**
@@ -25,8 +27,6 @@ class SupplierController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(SupplierCreateRequest $request) {
-        // return $request->all();
-
 
         $supplier =  Supplier::create($request->all());
 
@@ -51,7 +51,9 @@ class SupplierController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SupplierUpdateRequest $request, Supplier $supplier) {
+    public function update(SupplierUpdateRequest $request, 
+        Supplier $supplier) {
+
         $supplier->update($request->all());
 
         return new SupplierResource($supplier);
@@ -64,8 +66,8 @@ class SupplierController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Supplier $supplier) {
-        $supplier->delete();
+        // $supplier->delete();
 
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
     }
 }
