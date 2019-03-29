@@ -8,7 +8,8 @@ class SalesInvoice extends Model
 {
     protected $fillable = [
         'invoice_type', 'invoice_number', 
-        'invoice_date','customer_id', 'notes'
+        'invoice_date','customer_id', 
+        'user_id', 'notes'
     ];
 
 
@@ -16,10 +17,18 @@ class SalesInvoice extends Model
         return $this->belongsTo('App\Models\Customer')
             ->withDefault();
     }
-
-
-    public function salesInvoiceItems() {
-        return $this->hasMany('App\Models\SalesInvoiceItem');
+    
+    
+    public function user() {
+        return $this->belongsTo('App\User')
+            ->withDefault();
     }
+
+
+    public function items() {
+        return $this->hasMany('App\Models\SalesItem');
+    }
+
+    
     
 }

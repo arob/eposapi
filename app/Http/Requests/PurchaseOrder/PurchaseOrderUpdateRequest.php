@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\PurchaseInvoice;
+namespace App\Http\Requests\PurchaseOrder;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PurchaseInvoiceUpdateRequest extends FormRequest
+class PurchaseOrderUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,15 @@ class PurchaseInvoiceUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'invoice_number' => [
+            'order_number' => [
                 'required', 'string', 'max:20',
-                Rule::unique('purchase_invoices')->ignore($this->purchase_invoice)
+                Rule::unique('purchase_orders')->ignore($this->purchase_order)
             ],
-
-            'invoice_date' => 'required|date',
-            'supplier_id' => 'numeric',
-            'user_id' => 'numeric',
-            'notes' => 'string|max:255',
-            'items' => 'array'
+            'order_date' => 'date',
+            'supplier_id' => 'integer',
+            'status' => 'integer',
+            'user_id' => 'integer',
+            'notes' => 'string|max:255'
         ];
     }
 }

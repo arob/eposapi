@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\PurchaseItems;
+namespace App\Http\Resources\PurchaseOrder;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PurchaseItemsResource extends JsonResource
+class PurchaseOrderItemsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +19,10 @@ class PurchaseItemsResource extends JsonResource
         return [
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'product' => stripslashes($this->product->name),
-            'purchase_rate' => $this->purchase_rate,
-            'product_qty' => $this->product_qty,
-            'subtotal' => $this->purchase_rate * $this->product_qty
+            'product' => $this->product->name,
+            'order_rate' => $this->order_rate,
+            'order_qty' => $this->order_qty,
+            'notes' => $this->notes
         ];
     }
 }

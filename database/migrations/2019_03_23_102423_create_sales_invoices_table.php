@@ -21,7 +21,7 @@ class CreateSalesInvoicesTable extends Migration
             $table->date('invoice_date');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('notes', 255);
+            $table->string('notes', 255)->nullable();
         
             $table->timestamps();
 

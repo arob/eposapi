@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\PurchaseItem;
 use Illuminate\Http\Request;
 use App\Models\PurchaseInvoice;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PurchaseInvoice\PurchaseInvoiceResource;
 use App\Http\Resources\PurchaseInvoice\PurchaseInvoiceCollection;
 use App\Http\Requests\PurchaseInvoice\PurchaseInvoiceCreateRequest;
+use App\Http\Requests\PurchaseInvoice\PurchaseInvoiceUpdateRequest;
 use App\Http\Resources\PurchaseInvoice\PurchaseInvoiceWithItemsResource;
 
 class PurchaseInvoiceController extends Controller
@@ -65,9 +67,23 @@ class PurchaseInvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(
+        PurchaseInvoiceUpdateRequest $request, 
+        PurchaseInvoice $purchaseInvoice) {
+
+        $itemsModel = [];
+
+        foreach($request->items as $item) {
+            $itemsModel[] = new PurchaseItem($item);
+        }
+
+        $purchaseInvoice->update($request->all());
+        $purchaseInvoice->items()->delete();
+
+        $purchaseInvoice->items()->saveMany($itemsModel);
+
+
+        return new PurchaseInvoiceWithItemsResource($purchaseInvoice);
     }
 
     /**

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\PurchaseInvoice;
+namespace App\Http\Resources\PurchaseOrder;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\PurchaseInvoice\PurchaseItemsResource;
 
-class PurchaseInvoiceWithItemsResource extends JsonResource
+class PurchaseOrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,13 +18,14 @@ class PurchaseInvoiceWithItemsResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'invoice_number' => $this->invoice_number,
-            'invoice_date' => $this->invoice_date,
+            'order_date' => $this->order_date,
             'supplier' => $this->supplier->name,
+            'status' => $this->status,
             'created_by' => $this->user->name,
             'notes' => $this->notes,
-            'items' => PurchaseItemsResource::collection($this->items),
+            'links' => [
+                'self' => route('purchase-orders.show', $this->id)
+            ]
         ];
-        
     }
 }

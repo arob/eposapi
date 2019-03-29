@@ -29,4 +29,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('customers', 'API\CustomerController');
     Route::apiResource('products', 'API\ProductController');
     Route::apiResource('purchase-invoices', 'API\PurchaseInvoiceController');
+    Route::apiResource('sales-invoices', 'API\SalesInvoiceController');
+    Route::apiResource('purchase-orders', 'API\PurchaseOrderController');
 });

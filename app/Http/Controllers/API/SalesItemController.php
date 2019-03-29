@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Customer\CustomerResource;
-use App\Http\Requests\Customer\CustomerCreateRequest;
 
-class CustomerController extends Controller
+class SalesItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return CustomerResource::collection(
-            Customer::orderBy('name')->paginate(10)
-        );
+        //
     }
 
     /**
@@ -28,14 +23,9 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerCreateRequest $request)
+    public function store(Request $request)
     {
-    
-        // dd($request->all());
-
-        $customer = Customer::create($request->all());
-
-        return new CustomerResource($customer);
+        //
     }
 
     /**
@@ -44,9 +34,9 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show($id)
     {
-        return new CustomerResource($customer);
+        //
     }
 
     /**
@@ -56,11 +46,9 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerCreateRequest $request, Customer $customer)
+    public function update(Request $request, $id)
     {
-        $customer->update($request->all());
-
-        return new CustomerResource($customer);
+        //
     }
 
     /**
@@ -69,10 +57,8 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy($id)
     {
-        $customer->delete();
-
-        return response()->json(null, 204);
+        //
     }
 }

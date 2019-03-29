@@ -28,7 +28,10 @@ class CustomerResource extends JsonResource
             'reference' => $this->reference,
             'created_by' => $this->user->name,
             'status' => $this->status,
-            'since' => $this->created_at
+            'since' => $this->created_at->format('M d Y H:i:s'),
+            'links' => [
+                'self' => route('customers.show', $this->id)
+            ]
         ];
     }
 }

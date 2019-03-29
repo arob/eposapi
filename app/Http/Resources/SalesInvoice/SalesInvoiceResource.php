@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\PurchaseInvoice;
+namespace App\Http\Resources\SalesInvoice;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\PurchaseInvoice\PurchaseItemsResource;
 
-class PurchaseInvoiceWithItemsResource extends JsonResource
+class SalesInvoiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,14 +17,15 @@ class PurchaseInvoiceWithItemsResource extends JsonResource
         // return parent::toArray($request);
 
         return [
-            'id' => $this->id,
+            'invoice_type' => $this->invoice_type,
             'invoice_number' => $this->invoice_number,
             'invoice_date' => $this->invoice_date,
-            'supplier' => $this->supplier->name,
+            'customer' => $this->customer->name,
             'created_by' => $this->user->name,
             'notes' => $this->notes,
-            'items' => PurchaseItemsResource::collection($this->items),
+            'links' => [
+                'self' => route('sales-invoices.show', $this->id)
+            ]
         ];
-        
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SalesInvoiceItem extends Model
+class SalesItem extends Model
 {
     protected $fillable = [
         'product_id', 'product_qty', 'sales_rate', 
@@ -15,6 +15,12 @@ class SalesInvoiceItem extends Model
 
     public function product() {
         return $this->belongsTo('App\Models\Product')
+            ->withDefault();
+    }
+
+
+    public function invoice() {
+        return $this->belongsTo('App\Models\SalesInvoice')
             ->withDefault();
     }
     
