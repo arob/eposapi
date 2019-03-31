@@ -23,7 +23,6 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('size_unit_id')->nullable();
             $table->unsignedBigInteger('uom_id')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedDecimal('purchase_rate', 10, 2);            
             $table->unsignedDecimal('sales_rate', 10, 2);         
             $table->unsignedDecimal('vat_pct', 5, 2)->default(0);        
             $table->unsignedDecimal('tax_pct', 5, 2)->default(0);            

@@ -17,14 +17,13 @@ class CreatePurchaseOrderItemsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('product_id');
-            $table->unsignedDecimal('order_rate', 10, 2);
             $table->unsignedDecimal('order_qty', 10,2);
-            $table->unsignedBigInteger('purchase_order_id');
+            $table->unsignedBigInteger('order_id');
             $table->string('notes', 255);
 
             $table->timestamps();
 
-            $table->foreign('purchase_order_id')
+            $table->foreign('order_id')
                 ->references('id')
                 ->on('purchase_orders');
                 

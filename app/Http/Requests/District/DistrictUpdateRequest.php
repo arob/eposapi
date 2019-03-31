@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\District;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DistrictCreateRequest extends FormRequest
+class DistrictUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,13 @@ class DistrictCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:districts'
+            'name' => [
+                'required', 'string', 'max:50',
+                Rule::unique('districts')->ignore($this->district)
+            ],
+
+            'status' => 'boolean'
+
         ];
     }
 }

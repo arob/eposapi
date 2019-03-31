@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Master\Uom;
+namespace App\Http\Requests\Thana;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UomCreateRequest extends FormRequest
+class ThanaCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class UomCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:20|unique:uoms',
-            'short_name' => 'required|string|max:10|unique:uoms'
+            'name' => 'required|string|max:50|unique:thanas',
         ];
     }
 }

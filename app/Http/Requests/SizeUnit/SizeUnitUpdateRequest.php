@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\SizeUnit;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SizeUnitCreateRequest extends FormRequest
+class SizeUnitUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,9 @@ class SizeUnitCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|required|max:20|unique:size_units'
+            'name' => [
+                Rule::unique('size_units')->ignore($this->size_unit)
+            ]
         ];
     }
 }

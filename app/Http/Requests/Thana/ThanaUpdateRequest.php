@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\Thana;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ThanaCreateRequest extends FormRequest
+class ThanaUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,12 @@ class ThanaCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50|unique:thanas'
+            'name' => [
+                'required', 'string', 'max:50',
+                Rule::unique('thanas')->ignore($this->thana)
+            ],
+
+            'status' => 'boolean'
         ];
     }
 }

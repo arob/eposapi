@@ -4,18 +4,15 @@ namespace App\Http\Resources\Product;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
-{
+class ProductResource extends JsonResource {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
-    {
-        // return parent::toArray($request);
-
+    public function toArray($request) {
+    
         return [
             'id' => $this->id,
             'code' => $this->code,
@@ -35,7 +32,8 @@ class ProductResource extends JsonResource
             'supplier' => $this->supplier->name,
             'manufacturer' => $this->manufacturer->name,
             'origin' => $this->country->name,
-            'status' => $this->status === 1 ? 'Active' : 'Inactive'
+            'status' => $this->status,
+            'created_by' => $this->user->name
         ];
 
     }

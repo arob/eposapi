@@ -4,17 +4,14 @@ namespace App\Http\Resources\SalesInvoice;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SalesInvoiceResource extends JsonResource
-{
+class SalesInvoiceResource extends JsonResource {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
-    {
-        // return parent::toArray($request);
+    public function toArray($request) {
 
         return [
             'invoice_type' => $this->invoice_type,

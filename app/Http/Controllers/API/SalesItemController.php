@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\SalesItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SalesInvoice\SalesItemsResource;
 
 class SalesItemController extends Controller {
     /**
@@ -11,9 +13,12 @@ class SalesItemController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+
+        return SalesItemsResource::collection(
+            SalesItem::orderBy('created_at')->paginate()
+        );
+        
     }
 
     /**
@@ -33,9 +38,9 @@ class SalesItemController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SalesItem $salesItem)
     {
-        //
+        return new SalesItemsResource($salesItem);
     }
 
     /**

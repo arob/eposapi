@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Uom;
-use App\Http\Resources\UomResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Master\Uom\UomUpdateRequest;
-use App\Http\Requests\Master\Uom\UomCreateRequest;
+use App\Http\Resources\Uom\UomResource;
+use App\Http\Requests\Uom\UomCreateRequest;
+use App\Http\Requests\Uom\UomUpdateRequest;
 
 class UomController extends Controller {
     /**

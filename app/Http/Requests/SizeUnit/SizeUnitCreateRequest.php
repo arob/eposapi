@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\SizeUnit;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CountryCreateRequest extends FormRequest
+class SizeUnitCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class CountryCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50|unique:countries',
-            'short_name' => 'string|max:10|unique:countries'
+            'name' => 'string|required|max:20|unique:size_units'
         ];
     }
 }

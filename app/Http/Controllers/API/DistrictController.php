@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Models\District;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DistrictResource;
-use App\Http\Requests\Master\DistrictCreateRequest;
+use App\Http\Resources\District\DistrictResource;
+use App\Http\Requests\District\DistrictCreateRequest;
+use App\Http\Requests\District\DistrictUpdateRequest;
 
 class DistrictController extends Controller {
     /**
@@ -46,7 +47,8 @@ class DistrictController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DistrictCreateRequest $request, 
+    public function update(
+        DistrictUpdateRequest $request, 
         District $district) {
             
         $district->update($request->all());

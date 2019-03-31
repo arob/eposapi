@@ -10,5 +10,11 @@ class Uom extends Model
         'name', 'short_name'
     ];
 
+
+    public function products() {
+        return $this->hasMany('App\Models\Product');
+    }
+    
+    
     public $timestamps = false;
 }

@@ -19,6 +19,10 @@ class District extends Model
     public function suppliers() {
         return $this->hasMany('App\Models\Supplier');
     }
-
+    
+    
+    public function product() {
+        return $this->hasMany('App\Models\Product');
+    }
 
 }

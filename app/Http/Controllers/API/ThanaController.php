@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Thana;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ThanaResource;
-use App\Http\Requests\Master\ThanaCreateRequest;
+use App\Http\Resources\Thana\ThanaResource;
+use App\Http\Requests\Thana\ThanaCreateRequest;
+use App\Http\Requests\Thana\ThanaUpdateRequest;
 
 class ThanaController extends Controller {
     /**
@@ -49,7 +50,7 @@ class ThanaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ThanaCreateRequest $request, 
+    public function update(ThanaUpdateRequest $request, 
         Thana $thana) {
 
         $thana->update($request->all());

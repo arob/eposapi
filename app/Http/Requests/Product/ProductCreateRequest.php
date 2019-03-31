@@ -30,7 +30,6 @@ class ProductCreateRequest extends FormRequest
             'size' => 'numeric',
             'uom' => 'numeric',
             'description' => 'string',
-            'purchase_rate' => 'required|numeric',
             'sales_rate' => 'required|numeric',
             'vat_pct' => 'required|numeric',
             'tax_pct' => 'required|numeric',
@@ -38,12 +37,12 @@ class ProductCreateRequest extends FormRequest
             'stock_qty' => 'numeric',
             'warranty_period' => 'required|numeric',
             'reorder_level' => 'numeric',
-            'supplier_id' => 'numeric',
-            'manufacturer_id' => 'numeric',
-            'manufacturer_id' => 'numeric',
-            'country_id' => 'numeric',
+            'supplier_id' => 'integer',
+            'manufacturer_id' => 'integer',
+            'manufacturer_id' => 'integer',
+            'country_id' => 'integer',
             'status' => 'boolean',
-            'user_id' => 'numeric'
+            'user_id' => 'integer'
         ];
     }
 }

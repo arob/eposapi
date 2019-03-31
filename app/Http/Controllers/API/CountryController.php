@@ -4,15 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Country;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CountryResource;
-use App\Http\Requests\Master\CountryCreateRequest;
+use App\Http\Resources\Country\CountryResource;
+use App\Http\Requests\Country\CountryCreateRequest;
+use App\Http\Requests\Country\CountryUpdateRequest;
 
 class CountryController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function index() {
         return CountryResource::collection(
             Country::orderBy('name')->get()
@@ -52,7 +53,11 @@ class CountryController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CountryCreateRequest $request, Country $country) {
+    public function update(
+        CountryUpdateRequest $request, 
+        Country $country
+        ) {
+
         $country->update($request->all());
 
         return new CountryResource($country);

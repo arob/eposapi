@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Master;
+namespace App\Http\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TagCreateRequest extends FormRequest {
+class TagCreateRequest extends FormRequest
+{
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -19,7 +21,8 @@ class TagCreateRequest extends FormRequest {
      *
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             'name' => 'required|max:50|unique:tags'
         ];

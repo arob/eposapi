@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\SizeUnit;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SizeUnitResource extends JsonResource
-{
+class SizeUnitResource extends JsonResource {
     /**
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
-    {
-        // return parent::toArray($request);
+    public function toArray($request) {
 
         return [
             'name' => $this->name

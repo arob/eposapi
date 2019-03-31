@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Tag;
-use App\Http\Resources\TagResource;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Master\TagCreateRequest;
+use App\Http\Resources\Tag\TagResource;
+use App\Http\Requests\Tag\TagCreateRequest;
 
 class TagController extends Controller {
     /**
@@ -46,10 +46,13 @@ class TagController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TagCreateRequest $request, Tag $tag) {
-        $tag->update($request->all());
+    public function update(
+        TagCreateRequest $request, 
+        Tag $tag) {
 
-        return new TagResource($tag);
+            $tag->update($request->all());
+
+            return new TagResource($tag);
     }
 
     /**
@@ -59,8 +62,7 @@ class TagController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tag $tag) {
-        $tag->delete();
-
-        return response()->json(null, 204);
+        // $tag->delete();
+        // return response()->json(null, 204);
     }
 }

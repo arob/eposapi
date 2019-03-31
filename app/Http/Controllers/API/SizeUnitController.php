@@ -5,8 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Models\SizeUnit;
 // use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SizeUnitResource;
-use App\Http\Requests\Master\SizeUnitCreateRequest;
+use App\Http\Resources\SizeUnit\SizeUnitResource;
+use App\Http\Requests\SizeUnit\SizeUnitCreateRequest;
+use App\Http\Requests\SizeUnit\SizeUnitUpdateRequest;
 
 class SizeUnitController extends Controller {
     /**
@@ -50,7 +51,8 @@ class SizeUnitController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SizeUnitCreateRequest $request, 
+    public function update(
+        SizeUnitUpdateRequest $request, 
         SizeUnit $sizeUnit) {
 
         $sizeUnit->update($request->all());
