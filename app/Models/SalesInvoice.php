@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SalesInvoice extends Model
 {
     protected $fillable = [
-        'invoice_type', 'invoice_number', 
-        'invoice_date','customer_id', 
+        'sales_type', 'invoice_number', 'invoice_date',
+        'customer_id', 'invoice_total', 'paid_amount',
         'user_id', 'notes'
     ];
 
@@ -29,6 +29,8 @@ class SalesInvoice extends Model
         return $this->hasMany('App\Models\SalesItem');
     }
 
-    
-    
+
+    public function installments() {
+        return $this->hasMany('App\Models\Installment');
+    }
 }

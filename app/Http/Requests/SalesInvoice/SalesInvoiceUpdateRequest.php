@@ -30,11 +30,13 @@ class SalesInvoiceUpdateRequest extends FormRequest
                 Rule::unique('sales_invoices')->ignore($this->sales_invoice)
             ],
 
+
+
             'invoice_date' => 'required|date',
-            'supplier_id' => 'numeric',
+            // 'customer_id' => 'required|numeric',
             'user_id' => 'numeric',
-            'notes' => 'string|max:255',
-            'items' => 'array'
+            // 'notes' => 'string|max:255',
+            // 'items' => 'array'
         ];
     }
 }

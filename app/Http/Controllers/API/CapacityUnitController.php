@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\SizeUnit;
+use App\Models\CapacityUnit;
 // use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SizeUnit\SizeUnitResource;
-use App\Http\Requests\SizeUnit\SizeUnitCreateRequest;
-use App\Http\Requests\SizeUnit\SizeUnitUpdateRequest;
+use App\Http\Resources\CapacityUnit\CapacityUnitResource;
+use App\Http\Requests\CapacityUnit\CapacityUnitCreateRequest;
+use App\Http\Requests\CapacityUnit\CapacityUnitUpdateRequest;
 
-class SizeUnitController extends Controller {
+class CapacityUnitController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return SizeUnitResource::collection(
-            SizeUnit::orderBy('name')->get()
+        return CapacityUnitResource::collection(
+            CapacityUnit::orderBy('name')->get()
         );
     }
 
@@ -27,11 +27,11 @@ class SizeUnitController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SizeUnitCreateRequest $request) {
+    public function store(CapacityUnitCreateRequest $request) {
 
-        $sizeUnit = SizeUnit::create($request->all());
+        $capacityUnit = CapacityUnit::create($request->all());
 
-        return new SizeUnitResource($sizeUnit);
+        return new CapacityUnitResource($capacityUnit);
     }
 
     /**
@@ -40,8 +40,8 @@ class SizeUnitController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SizeUnit $sizeUnit) {
-        return new SizeUnitResource($sizeUnit);
+    public function show(CapacityUnit $capacityUnit) {
+        return new CapacityUnitResource($capacityUnit);
     }
 
     /**
@@ -52,12 +52,12 @@ class SizeUnitController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(
-        SizeUnitUpdateRequest $request, 
-        SizeUnit $sizeUnit) {
+        CapacityUnitUpdateRequest $request, 
+        CapacityUnit $capacityUnit) {
 
-        $sizeUnit->update($request->all());
+        $capacityUnit->update($request->all());
 
-        return new SizeUnitResource($sizeUnit);
+        return new CapacityUnitResource($capacityUnit);
     }
 
     /**
@@ -66,8 +66,8 @@ class SizeUnitController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SizeUnit $sizeUnit) {
-        // $sizeUnit->delete();
+    public function destroy(CapacityUnit $capacityUnit) {
+        // $capacityUnit->delete();
 
         // return response()->json(null, 204);
 

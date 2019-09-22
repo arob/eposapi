@@ -13,7 +13,14 @@ class Supplier extends Model
         'website', 'status', 'user_id'
     ];
 
+    public function scopeActive($query) {
+        return $query->where('status', '=', 1);
+    }
+    
 
+    public function invoices() {
+        return $this->hasMany('App\Models\PurchaseInvoice');
+    }
     public function products() {
         return $this->hasMany('App\Models\Product');
     }

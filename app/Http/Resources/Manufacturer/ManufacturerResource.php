@@ -14,12 +14,15 @@ class ManufacturerResource extends JsonResource {
     public function toArray($request) {
 
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'short_name' => $this->short_name,
             'website' => $this->website,
+            'country_id' => $this->country_id,
             'country' => $this->country->name,
             'status' => $this->status,
-            'created_by' => $this->user->name
+            'user_id' => $this->user->id,
+            'user_name' => $this->user->name
         ];
     }
 }

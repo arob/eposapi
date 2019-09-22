@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class SalesItem extends Model
 {
     protected $fillable = [
-        'product_id', 'product_qty', 'sales_rate', 
-        'vat_amount', 'tax_amount', 'discount_amount',
-        'notes'
+        'product_id', 'product_qty', 'product_serial', 
+        'sales_rate', 'vat_amount', 'tax_amount', 
+        'discount_amount', 'notes'
     ];
+
+    public $timestamps = false;
 
 
     public function product() {

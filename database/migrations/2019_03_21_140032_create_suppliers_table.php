@@ -24,6 +24,7 @@ class CreateSuppliersTable extends Migration
             $table->unsignedBigInteger('thana_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
+            $table->decimal('payable', 10, 2)->default(0);
             $table->string('website', 255)->nullable();
             $table->boolean('status')->default(true);
             $table->unsignedBigInteger('user_id');

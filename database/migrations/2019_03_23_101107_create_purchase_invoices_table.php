@@ -20,7 +20,7 @@ class CreatePurchaseInvoicesTable extends Migration
             $table->date('invoice_date');
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('notes', 255);
+            $table->string('notes', 255)->nullable();
 
             $table->timestamps();
 

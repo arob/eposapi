@@ -23,6 +23,7 @@ class CreateCustomersTable extends Migration
             $table->unsignedBigInteger('thana_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
+            $table->decimal('receivable', 10, 2)->default(0);
             $table->string('reference', 100)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->boolean('status')->default(true);

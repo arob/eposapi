@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\SizeUnit;
+namespace App\Http\Requests\Company;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SizeUnitCreateRequest extends FormRequest
+class CompanyUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,10 @@ class SizeUnitCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|required|max:20|unique:size_units'
+            'name' => [
+                'required', 'string', 'max:255',
+                Rule::unique('companies')->ignore($this->company)
+            ]
         ];
     }
 }

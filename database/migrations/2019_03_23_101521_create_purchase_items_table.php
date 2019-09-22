@@ -21,7 +21,7 @@ class CreatePurchaseItemsTable extends Migration
             $table->unsignedDecimal('product_qty', 10, 2);
             $table->unsignedBigInteger('purchase_invoice_id');
 
-            $table->timestamps();
+            // $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('purchase_invoice_id')->references('id')->on('purchase_invoices');

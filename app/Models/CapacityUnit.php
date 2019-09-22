@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SizeUnit extends Model
+class CapacityUnit extends Model
 {
     
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'short_name'];
 
 
     public function products() {

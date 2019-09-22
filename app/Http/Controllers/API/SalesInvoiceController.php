@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Models\SalesItem;
 use App\Models\SalesInvoice;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\SalesInvoice\SalesInvoiceResource;
 use App\Http\Requests\SalesInvoice\SalesInvoiceCreateRequest;
 use App\Http\Requests\SalesInvoice\SalesInvoiceUpdateRequest;
@@ -17,10 +19,16 @@ class SalesInvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
+        if(!Gate::allows('salesInvoice.view')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
         return SalesInvoiceResource::collection(
-            SalesInvoice::orderBy('created_at')
-                ->paginate(10)
+            SalesInvoice::latest()->get()
         );
+
+        // return SalesInvoice::all();
     }
 
     /**
@@ -31,9 +39,17 @@ class SalesInvoiceController extends Controller {
      */
     public function store(SalesInvoiceCreateRequest $request) {
 
-        $salesInvoice = SalesInvoice::create($request->all());
+        if(!Gate::allows('salesInvoice.create')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
+        $inputData = $request->all();
+        $inputData['user_id'] = Auth::id();
+
+        $salesInvoice = SalesInvoice::create($inputData);
 
         $salesInvoice->items()->createMany($request->items);
+        $salesInvoice->installments()->createMany($request->installments);
 
         return new SalesInvoiceWithItemsResource($salesInvoice);
     }
@@ -58,6 +74,10 @@ class SalesInvoiceController extends Controller {
     public function update(SalesInvoiceUpdateRequest $request, 
         SalesInvoice $salesInvoice) {
 
+        if(!Gate::allows('salesInvoice.update', $salesInvoice)) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
         $salesInvoice->update($request->all());
         $salesInvoice->items()->delete();
 
@@ -76,4 +96,6 @@ class SalesInvoiceController extends Controller {
     public function destroy(SalesInvoice $salesInvoice) {
         //
     }
+
+    
 }

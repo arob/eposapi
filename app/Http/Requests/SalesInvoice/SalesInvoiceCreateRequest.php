@@ -27,9 +27,11 @@ class SalesInvoiceCreateRequest extends FormRequest
             'invoice_number' => 'required|string|max:20|unique:sales_invoices',
             'invoice_date' => 'required|date',
             'supplier_id' => 'numeric',
+            'invoice_total' => 'numeric',
+            'paid_amount' => 'numeric',
             'user_id' => 'numeric',
-            'notes' => 'string|max:255',
-            'items' => 'array'
+            'items' => 'array',
+            'installments' => 'array'
         ];
     }
 }

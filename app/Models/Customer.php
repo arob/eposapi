@@ -14,6 +14,16 @@ class Customer extends Model
     ];
 
 
+    public function scopeActive($query) {
+        return $query->where('status','=', 1);
+    }
+
+
+    public function invoices() {
+        return $this->hasMany('App\Models\SalesInvoice');
+    }
+
+
     public function country() {
         return $this->belongsTo('App\Models\Country')
             ->withDefault();

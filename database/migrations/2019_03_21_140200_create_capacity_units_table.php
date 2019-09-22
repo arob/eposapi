@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSizeUnitsTable extends Migration
+class CreateCapacityUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSizeUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('size_units', function (Blueprint $table) {
+        Schema::create('capacity_units', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             
             $table->string('name', 20)->unique();
-            
+            $table->string('short_name', 10)->nullable();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateSizeUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('size_units');
+        Schema::dropIfExists('capacity_units');
     }
 }

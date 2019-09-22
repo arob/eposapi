@@ -8,14 +8,22 @@ class Product extends Model
 {
     protected $fillable = [
         'code', 'name', 'model', 'size', 'uom_id', 'description',
-        'sales_rate', 'vat_pct', 'tax_pct',
-        'discount_pct', 'stock_qty', 'reorder_level', 
-        'warranty_period', 'supplier_id',
-        'manufacturer_id', 'country_id',
-        'status', 'user_id'
+        'sales_rate', 'vat_pct', 'tax_pct','discount_pct', 
+        'reorder_level', 'warranty_period', 'capacity',
+        'capacity_unit_id','manufacturer_id',
+        'country_id', 'status', 'user_id'
     ];
 
+    public function scopeInStock($query) {
+        return $query->where('stock_qty', '>', 0);
+    }
+
+
+    public function scopeActive($query) {
+        return $query->where('status', '=', 1);
+    }
     
+
     
     public function uom() {
         return $this->belongsTo('App\Models\Uom')
@@ -23,8 +31,8 @@ class Product extends Model
     }
 
 
-    public function sizeUnit() {
-        return $this->belongsTo('App\Models\SizeUnit')
+    public function capacityUnit() {
+        return $this->belongsTo('App\Models\CapacityUnit')
             ->withDefault();
     }
 
@@ -35,12 +43,6 @@ class Product extends Model
     }
     
     
-    public function supplier() {
-        return $this->belongsTo('App\Models\Supplier')
-            ->withDefault();
-    }
-
-    
     public function manufacturer() {
         return $this->belongsTo('App\Models\Manufacturer')
             ->withDefault();
@@ -48,18 +50,12 @@ class Product extends Model
 
 
     public function tags() {
-        return $this->belongsToMany('App\Models\Tag')
-            ->withDefault();
+        return $this->belongsToMany('App\Models\Tag');
     }
 
-    // public function purchase_order_items() {
-    //     return $this->hasMany('App\Models\PurchaseOrderItem');
-    // }
-    
-    
-    // public function sales_order_items() {
-    //     return $this->hasMany('App\Models\PurchaseOrderItem');
-    // }
 
-    
+    public function user() {
+        return $this->belongsTo('App\User')
+            ->withDefault();
+    }    
 }

@@ -22,5 +22,6 @@ class PurchaseItem extends Model
             ->withDefault();
     }
 
-
+    
+    public $timestamps = false;
 }

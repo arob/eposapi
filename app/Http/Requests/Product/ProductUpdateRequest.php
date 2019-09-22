@@ -37,22 +37,22 @@ class ProductUpdateRequest extends FormRequest
               Rule::unique('products')->ignore($this->product)
             ],
 
-            'size' => 'numeric',
-            'uom' => 'numeric',
-            'description' => 'string',
-            'sales_rate' => 'required|numeric',
-            'vat_pct' => 'required|numeric',
-            'tax_pct' => 'required|numeric',
-            'discount_pct' => 'numeric',
-            'stock_qty' => 'numeric',
-            'warranty_period' => 'required|numeric',
-            'reorder_level' => 'numeric',
-            'supplier_id' => 'integer',
-            'manufacturer_id' => 'integer',
-            'manufacturer_id' => 'integer',
-            'country_id' => 'integer',
-            'status' => 'boolean',
-            'user_id' => 'integer'
+            // 'capacity' => 'numeric',
+            // 'capacity_unit_id' => 'integer',
+            // 'uom' => 'numeric',
+            // 'description' => 'string|max:255',
+            // 'sales_rate' => 'required|numeric',
+            // 'vat_pct' => 'numeric',
+            // 'tax_pct' => 'numeric',
+            // 'discount_pct' => 'numeric',
+            // 'stock_qty' => 'numeric',
+            // 'warranty_period' => 'numeric',
+            // 'reorder_level' => 'numeric',
+            // 'supplier_id' => 'integer',
+            // 'manufacturer_id' => 'integer',
+            // 'country_id' => 'integer',
+            // 'status' => 'boolean',
+            // 'user_id' => 'integer'
         ];
     }
 }

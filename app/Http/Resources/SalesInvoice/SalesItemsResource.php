@@ -16,7 +16,8 @@ class SalesItemsResource extends JsonResource {
         return [
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'product' => $this->product->name,
+            'name' => $this->product->name,
+            'model' => $this->product->model,
             'sales_rate' => $this->sales_rate,
             'product_qty' => $this->product_qty,
             'vat_amount' => $this->vat_amount,
@@ -25,8 +26,8 @@ class SalesItemsResource extends JsonResource {
             
             'subtotal' => ($this->sales_rate * $this->product_qty) 
                 + $this->vat_amount + $this->tax_amount - $this->discount_amount,
-            
-                'sales_invoice_id' => $this->sales_invoice_id
+                
+            'sales_invoice_id' => $this->sales_invoice_id
         ];
     }
 }

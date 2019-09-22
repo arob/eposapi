@@ -4,9 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Manufacturer;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Manufacturer\ManufacturerResource;
 use App\Http\Requests\Manufacturer\ManufacturerCreateRequest;
 use App\Http\Requests\Manufacturer\ManufacturerUpdateRequest;
+use Gate;
 
 class ManufacturerController extends Controller {
     /**
@@ -15,8 +17,13 @@ class ManufacturerController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
+        if(!Gate::allows('manufacturer.view')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
         return ManufacturerResource::collection(
-            Manufacturer::orderBy('name')->paginate()
+            Manufacturer::orderBy('name')->get()
         );
     }
 
@@ -28,7 +35,18 @@ class ManufacturerController extends Controller {
      */
     public function store(ManufacturerCreateRequest $request) {
 
-        $manufacturer = Manufacturer::create($request->all());
+        if(!Gate::allows('manufacturer.create')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
+        $manufacturer = Manufacturer::create([
+            'name' => $request->name,
+            'short_name' => $request->short_name,
+            'website' => $request->website,
+            'country_id' => $request->country_id,
+            'status' => true,
+            'user_id' => Auth::id()
+        ]);
 
         return new ManufacturerResource($manufacturer);
         
@@ -54,6 +72,10 @@ class ManufacturerController extends Controller {
     public function update(
         ManufacturerUpdateRequest $request, 
         Manufacturer $manufacturer) {
+
+        if(!Gate::allows('manufacturer.update', $manufacturer)) {
+            abort(403, 'Sorry, permission denied!');
+        }
 
         $manufacturer->update($request->all());
 

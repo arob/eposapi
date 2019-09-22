@@ -17,12 +17,15 @@ class PurchaseInvoiceResource extends JsonResource {
             'id' => $this->id,
             'invoice_number' => $this->invoice_number,
             'invoice_date' => $this->invoice_date,
-            'supplier' => $this->supplier->name,
-            'created_by' => $this->user->name,
+            'supplier_name' => $this->supplier->name,
+            'invoice_total' => $this->invoice_total,
+            'paid_amount' => $this->paid_amount,
+            'due_amount' => $this->invoice_total - $this->paid_amount,
+            'user' => $this->user->name,
             'notes' => $this->notes,
-            'links' => [
-                'self' => route('purchase-invoices.show', $this->id)
-            ]
+            // 'links' => [
+            //     'self' => route('purchase-invoices.show', $this->id)
+            // ]
         ];
     }
 }

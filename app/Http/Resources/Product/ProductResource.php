@@ -18,10 +18,10 @@ class ProductResource extends JsonResource {
             'code' => $this->code,
             'name' => $this->name,
             'model' => $this->model,
-            'size' => $this->size,
-            'uom' => $this->uom->short_name,
+            'capacity' => $this->capacity,
+            'capacity_unit_id' => $this->capacity_unit_id,
+            'uom' => $this->uom,
             'description' => $this->description,
-            'purchase_rate' => $this->purchase_rate,
             'sales_rate' => $this->sales_rate,
             'vat_pct' => $this->vat_pct,
             'tax_pct' => $this->tax_pct,
@@ -29,11 +29,12 @@ class ProductResource extends JsonResource {
             'stock_qty' => $this->stock_qty,
             'reorder_level' => $this->reorder_level,
             'warranty_period' => $this->warranty_period,
-            'supplier' => $this->supplier->name,
             'manufacturer' => $this->manufacturer->name,
             'origin' => $this->country->name,
             'status' => $this->status,
-            'created_by' => $this->user->name
+            'created_by' => $this->user->name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
 
     }

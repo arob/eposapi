@@ -16,6 +16,7 @@ class CreateSalesItemsTable extends Migration {
 
             $table->unsignedBigInteger('product_id');
             $table->unsignedDecimal('product_qty', 10, 2);
+            $table->string('product_serial', 255)->nullable();
             $table->unsignedDecimal('sales_rate', 10, 2);
             $table->unsignedDecimal('vat_amount', 10, 2);
             $table->unsignedDecimal('tax_amount', 10, 2);

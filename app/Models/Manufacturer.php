@@ -10,6 +10,11 @@ class Manufacturer extends Model
         'name', 'short_name', 'website', 'country_id', 'status', 'user_id'
     ];
 
+
+    public function scopeActive($query) {
+        return $query->where('status', '=', 1);
+    }
+
     
     public function country() {
         return $this->belongsTo('App\Models\Country')

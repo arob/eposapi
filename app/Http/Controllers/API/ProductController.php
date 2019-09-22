@@ -4,9 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Product;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Requests\Product\ProductCreateRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
+
 
 class ProductController extends Controller {
     /**
@@ -15,10 +18,29 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        
+        if(!Gate::allows('product.view')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
         return ProductResource::collection(
             Product::orderBy('name')->get()
         );
     }
+
+    public function salableProducts() {
+        return ProductResource::collection(
+            Product::orderBy('name')->inStock()->active()->get()
+        );
+    }
+
+
+    public function activeProducts() {
+        return ProductResource::collection(
+            Product::orderBy('name')->active()->get()
+        );
+    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -27,7 +49,16 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(ProductCreateRequest $request) {
-        $product = Product::create($request->all());
+
+        if(!Gate::allows('product.create')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
+        $inputData = $request->all();
+        $inputData['user_id'] = Auth::id();
+
+
+        $product = Product::create($inputData);
 
         return new ProductResource($product);
     }
@@ -53,6 +84,9 @@ class ProductController extends Controller {
      */
     public function update(ProductUpdateRequest $request, 
         Product $product) {
+        if (!Gate::allows('product.update', $product)) {
+            abort(403, 'Sorry, permission denied!');
+        }
         $product->update($request->all());
 
         return new ProductResource($product);

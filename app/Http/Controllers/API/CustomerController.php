@@ -4,8 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Customer;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Customer\CustomerResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Customer\CustomerCreateRequest;
+use App\Http\Resources\Customer\CustomerResource;
+use App\Http\Resources\Customer\CustomerWithInvoiceResource;
 
 class CustomerController extends Controller {
     /**
@@ -14,6 +17,11 @@ class CustomerController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
+        if(!Gate::allows('customer.view')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
         return CustomerResource::collection(
             Customer::orderBy('name')->paginate(10)
         );
@@ -26,8 +34,16 @@ class CustomerController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(CustomerCreateRequest $request) {
+
+
+        if(!Gate::allows('customer.create')) {
+            abort(403, 'Sorry, permission denied!');
+        }
     
-        $customer = Customer::create($request->all());
+        $inputData = $request->all();
+        $inputData['user_id'] = Auth::id();
+
+        $customer = Customer::create($inputData);
 
         return new CustomerResource($customer);
 
@@ -40,7 +56,7 @@ class CustomerController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Customer $customer) {
-        return new CustomerResource($customer);
+        return new CustomerWithInvoiceResource($customer);
     }
 
     /**
@@ -52,6 +68,11 @@ class CustomerController extends Controller {
      */
     public function update(CustomerCreateRequest $request, 
         Customer $customer) {
+
+        if(!Gate::allows('customer.update', $customer)) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
         $customer->update($request->all());
 
         return new CustomerResource($customer);

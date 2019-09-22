@@ -27,7 +27,6 @@ class ManufacturerCreateRequest extends FormRequest
             'name' => 'required|string|max:50|unique:manufacturers',
             'short_name' => 'string|max:10|',
             'webiste' => 'string|max:100',
-            'country_id' => 'integer',
             'status' => 'boolean',
             'user_id' => 'numeric'
         ];

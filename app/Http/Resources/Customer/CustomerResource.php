@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Customer;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\SalesInvoice\SalesInvoiceResource;
 
 class CustomerResource extends JsonResource {
     /**
@@ -19,16 +20,14 @@ class CustomerResource extends JsonResource {
             'contact_number' => $this->contact_number,
             'email' => $this->email,
             'address' => $this->address,
-            'thana' => $this->thana->name,
-            'district' => $this->district->name,
-            'country' => $this->country->name,
+            'thana' => $this->thana,
+            'district' => $this->district,
+            'country' => $this->country,
             'reference' => $this->reference,
-            'created_by' => $this->user->name,
+            'created_by' => $this->user,
             'status' => $this->status,
             'since' => $this->created_at->format('M d Y H:i:s'),
-            'links' => [
-                'self' => route('customers.show', $this->id)
-            ]
+            // 'invoices' => SalesInvoiceResource::collection($this->invoices)
         ];
     }
 }

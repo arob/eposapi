@@ -27,14 +27,14 @@ class SupplierCreateRequest extends FormRequest
             'name' => 'required|string|max:50|unique:suppliers',
             'contact_person' => 'required|string|max:50',
             'contact_number' => 'required|string|max:50',
-            'email' => 'string|max:100',
-            'address' => 'string|max:255',
-            'thana_id' => 'integer',
-            'district_id' => 'integer',
-            'country_id' => 'integer',
-            'website' => 'string|max:255',
-            'status' => 'boolean',
-            'user_id' => 'integer'
+            // 'email' => 'email|max:100',
+            // 'address' => 'string|max:255',
+            // 'thana_id' => 'integer',
+            // 'district_id' => 'integer',
+            // 'country_id' => 'integer',
+            // 'website' => 'string|max:255',
+            // 'status' => 'boolean',
+            // 'user_id' => 'integer'
         ];
     }
 }
