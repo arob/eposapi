@@ -23,7 +23,7 @@ class CustomerController extends Controller {
         }
 
         return CustomerResource::collection(
-            Customer::orderBy('name')->paginate(10)
+            Customer::orderBy('name')->get()
         );
     }
 

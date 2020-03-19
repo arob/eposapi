@@ -7,6 +7,7 @@ use App\Models\SalesInvoice;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+// use Illuminate\Support\Facades\DB;
 use App\Http\Resources\SalesInvoice\SalesInvoiceResource;
 use App\Http\Requests\SalesInvoice\SalesInvoiceCreateRequest;
 use App\Http\Requests\SalesInvoice\SalesInvoiceUpdateRequest;
@@ -31,6 +32,7 @@ class SalesInvoiceController extends Controller {
         // return SalesInvoice::all();
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,6 +47,12 @@ class SalesInvoiceController extends Controller {
 
         $inputData = $request->all();
         $inputData['user_id'] = Auth::id();
+
+        $insertId = SalesInvoice::max('id') + 1;
+        $insertString = str_pad($insertId, 9, '0', STR_PAD_LEFT);
+
+        $inputData['invoice_number'] = date('Y-m') . '-' . $insertString;
+
 
         $salesInvoice = SalesInvoice::create($inputData);
 
@@ -96,6 +104,55 @@ class SalesInvoiceController extends Controller {
     public function destroy(SalesInvoice $salesInvoice) {
         //
     }
+
+
+
+    // ********************************************** Report Functions *****************************************
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function salesInvoiceReport($from, $to, $customer_id=0, $user_id=0) {
+
+        if(!Gate::allows('salesInvoice.view')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
+        if ($customer_id == 0 and $user_id == 0) {
+            return SalesInvoiceResource::collection(
+                SalesInvoice::where('invoice_date', '>=', $from)
+                ->where('invoice_date', '<=', $to)
+                ->latest()->get()
+            );
+        } else if($customer_id != 0 and $user_id == 0) {
+            return SalesInvoiceResource::collection(
+                SalesInvoice::where('invoice_date', '>=', $from)
+                ->where('invoice_date', '<=', $to)
+                ->where('customer_id', '=', $customer_id)
+                ->latest()->get()
+            );
+        } else if($customer_id == 0 and $user_id != 0) {
+            return SalesInvoiceResource::collection(
+                SalesInvoice::where('invoice_date', '>=', $from)
+                ->where('invoice_date', '<=', $to)
+                ->where('user_id', '=', $user_id)
+                ->latest()->get()
+            );            
+        } else if($customer_id != 0 and $user_id != 0) {
+            return SalesInvoiceResource::collection(
+                SalesInvoice::where('invoice_date', '>=', $from)
+                ->where('invoice_date', '<=', $to)
+                ->where('customer_id', '=', $customer_id)
+                ->where('user_id', '=', $user_id)
+                ->latest()->get()
+            );
+
+        }
+
+    }
+
 
     
 }

@@ -45,8 +45,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        if ($user->type === 'admin') return true;
-        if ($user->type === 'manager' AND $user->id === $product->user_id) return true;
+        if ($user->type === 'admin' OR $user->type === 'manager') return true;
         return false;
     }
 

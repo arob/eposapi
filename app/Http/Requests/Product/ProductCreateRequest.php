@@ -40,25 +40,22 @@ class ProductCreateRequest extends FormRequest
     {
 
         return [
-            'code' => 'string|required|max:20|unique:products',
             'name' => 'string|required|max:50',
             'model' => 'string|required|max:20|unique:products',
-            // 'capacity' => 'numeric',
-            // 'capacity_unit_id' => 'integer',
-            // 'uom' => 'numeric',
-            // 'description' => 'string|max:255',
-            // 'sales_rate' => 'required|numeric',
-            // 'vat_pct' => 'required|numeric',
-            // 'tax_pct' => 'required|numeric',
-            // 'discount_pct' => 'numeric',
-            // 'stock_qty' => 'numeric',
-            // 'warranty_period' => 'numeric',
-            // 'reorder_level' => 'numeric',
-            // 'supplier_id' => 'integer',
-            // 'manufacturer_id' => 'integer',
-            // 'country_id' => 'integer',
-            // 'status' => 'boolean',
-            // 'user_id' => 'integer'
+            'capacity' => 'nullable|numeric',
+            'capacity_unit_id' => 'nullable|integer',
+            'description' => 'nullable|string|max:255',
+            'sales_rate' => 'required|numeric',
+            'vat_pct' => 'nullable|numeric',
+            'tax_pct' => 'nullable|numeric',
+            'discount_pct' => 'nullable|numeric',
+            'stock_qty' => 'nullable|numeric',
+            'warranty_period' => 'nullable|numeric',
+            'reorder_level' => 'nullable|numeric',
+            'supplier_id' => 'nullable|integer',
+            'manufacturer_id' => 'nullable|integer',
+            'country_id' => 'nullable|integer',
+            'status' => 'boolean',
         ];
     }
 }

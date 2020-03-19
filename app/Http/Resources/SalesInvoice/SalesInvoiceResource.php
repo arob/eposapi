@@ -18,6 +18,7 @@ class SalesInvoiceResource extends JsonResource {
             'sales_type' => $this->sales_type,
             'invoice_number' => $this->invoice_number,
             'invoice_date' => $this->invoice_date,
+            'invoice_created_at' => $this->created_at,
             'customer' => $this->customer->name,
             'invoice_total' => $this->invoice_total,
             'paid_amount' => $this->paid_amount,

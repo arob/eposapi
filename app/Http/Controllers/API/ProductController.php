@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Requests\Product\ProductCreateRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
@@ -30,7 +31,10 @@ class ProductController extends Controller {
 
     public function salableProducts() {
         return ProductResource::collection(
-            Product::orderBy('name')->inStock()->active()->get()
+            Product::orderBy('name')
+            ->inStock()
+            ->active()
+            ->get()
         );
     }
 
@@ -54,7 +58,13 @@ class ProductController extends Controller {
             abort(403, 'Sorry, permission denied!');
         }
 
+        $maxId = Product::max('id') ? Product::max('id') : 1;
+        $insertCode = date('Y') . '-' . str_pad($maxId, 6, '0', STR_PAD_LEFT);
+
+
         $inputData = $request->all();
+
+        $inputData['code'] = $insertCode;
         $inputData['user_id'] = Auth::id();
 
 
@@ -101,4 +111,34 @@ class ProductController extends Controller {
     public function destroy(Product $product) {
         //
     }
+
+    // *********************************** Report functions ****************************
+    /**
+     * Lists all purchased products
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function productStockReport() {
+
+        $records = DB::table('vu_product_purchase')->get();
+            
+        return response()->json(['data' => $records], 200);
+
+    }
+
+    /**
+     * Lists all sold products
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function productSoldReport() {
+
+        $records = DB::table('vu_product_sales')->get();
+            
+        return response()->json(['data' => $records], 200);
+
+    }
+    
 }

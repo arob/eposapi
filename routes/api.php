@@ -38,9 +38,23 @@ Route::group(['prefix' => 'v1'], function () {
         Route::apiResource('manufacturers', 'API\ManufacturerController');
         Route::apiResource('suppliers', 'API\SupplierController');
         Route::apiResource('customers', 'API\CustomerController');
+        
         Route::apiResource('products', 'API\ProductController');
+        
+        Route::get('products-stock-report', 'API\ProductController@productStockReport')
+            ->name('products_stock');
+        
+            Route::get('products-sold-report', 'API\ProductController@productSoldReport')
+            ->name('products_stock');
+        
+        
         Route::apiResource('purchase-invoices', 'API\PurchaseInvoiceController');
+        Route::get('purchase-report/{from}/{to}/{id}', 'API\PurchaseInvoiceController@report')
+            ->name('purchase_report');
+        
         Route::apiResource('sales-invoices', 'API\SalesInvoiceController');
+        Route::get('sales-invoice-report/{from}/{to}/{customer_id}/{user_id}', 'API\SalesInvoiceController@salesInvoiceReport')
+            ->name('sales_report');
         
         Route::apiResource('acc-categories', 'API\AccCategoryController');
         Route::apiResource('acc-heads', 'API\AccHeadController');

@@ -26,8 +26,10 @@ class CustomerCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'contact_number' => 'required|string|max:50',
-            'address' => 'string|max:255',
-            'user_id' => 'required|numeric',
+            'address' => 'nullable|string|max:255',
+            'thana_id' => 'nullable|numeric',
+            'district_id' => 'nullable|numeric',
+            'country_id' => 'nullable|numeric',
             'status' => 'boolean'
         ];
     }

@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('model', 20)->unique();
             $table->unsignedDecimal('capacity', 10, 2)->nullable();
             $table->unsignedBigInteger('capacity_unit_id')->nullable();
-            $table->unsignedBigInteger('uom_id')->nullable();
+            // $table->unsignedBigInteger('uom_id')->nullable();
             $table->text('description')->nullable();
             $table->unsignedDecimal('sales_rate', 10, 2);         
             $table->unsignedDecimal('vat_pct', 5, 2)->default(0);        

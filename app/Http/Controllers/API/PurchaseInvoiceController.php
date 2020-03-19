@@ -29,6 +29,7 @@ class PurchaseInvoiceController extends Controller {
         );
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -41,16 +42,14 @@ class PurchaseInvoiceController extends Controller {
             abort(403, 'Sorry, permission denied!');
         }
 
-        $purchaseInvoice = PurchaseInvoice::create([
-            'invoice_number' => $request->invoice_number,
-            'invoice_date' => $request->invoice_date,
-            'supplier_id' => $request->supplier_id,
-            'invoice_total' => $request->invoice_total,
-            'paid_amount' => $request->paid_amount,
-            'user_id' => Auth::id(),
-            'notes' => $request->notes
-        ]);
+        $inputData = $request->all();
+        $inputData['user_id'] = Auth::id();
 
+        $insertId = PurchaseInvoice::max('id') + 1;
+        $insertString = str_pad($insertId, 9, '0', STR_PAD_LEFT);
+        $inputData['invoice_number'] = date('Y-m') . '-' . $insertString;
+
+        $purchaseInvoice = PurchaseInvoice::create($inputData);
         $purchaseInvoice->items()->createMany($request->items);
 
         return new PurchaseInvoiceWithItemsResource($purchaseInvoice);
@@ -99,5 +98,34 @@ class PurchaseInvoiceController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    // ********************************* Reports *********************************
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report($from, $to, $supplier_id=0) {
+
+        if(!Gate::allows('salesInvoice.view')) {
+            abort(403, 'Sorry, permission denied!');
+        }
+
+        if ($supplier_id == 0) {
+            return PurchaseInvoiceResource::collection(
+                PurchaseInvoice::where('invoice_date', '>=', $from)
+                ->where('invoice_date', '<=', $to)
+                ->latest()->get()
+            );
+        } else {
+            return PurchaseInvoiceResource::collection(
+                PurchaseInvoice::where('invoice_date', '>=', $from)
+            ->where('invoice_date', '<=', $to)
+                ->where('supplier_id', '=', $supplier_id)
+                ->latest()->get()
+            );
+        }
+
     }
 }

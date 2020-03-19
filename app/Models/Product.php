@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -13,6 +14,7 @@ class Product extends Model
         'capacity_unit_id','manufacturer_id',
         'country_id', 'status', 'user_id'
     ];
+
 
     public function scopeInStock($query) {
         return $query->where('stock_qty', '>', 0);
@@ -25,10 +27,10 @@ class Product extends Model
     
 
     
-    public function uom() {
-        return $this->belongsTo('App\Models\Uom')
-            ->withDefault();
-    }
+    // public function uom() {
+    //     return $this->belongsTo('App\Models\Uom')
+    //         ->withDefault();
+    // }
 
 
     public function capacityUnit() {
